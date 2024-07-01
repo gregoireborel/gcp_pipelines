@@ -1,0 +1,8 @@
+apache-beam[gcp]==2.53.0
+google-api-core==2.15.0
+google-cloud-pubsub==2.19.0
+google-auth==2.26.2
+google-cloud-storage==2.14.0
+google-cloud-secret-manager==2.20.0
+tenacity==8.3.0
+ruff

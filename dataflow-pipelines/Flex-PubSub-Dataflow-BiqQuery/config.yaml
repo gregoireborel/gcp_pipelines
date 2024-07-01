@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'  # Use the official Docker builder image
+  args: ['build', '-t', '$CONTAINER_IMAGE', '.']  # Build the image with your tag
+- name: 'gcr.io/google.auth/python:3.x'  # Use an image with authentication tools
+  args: ['bash', '-c', 'pip install --index-url $CONTAINER_IMAGE --no-cache-dir gymsharkpy']  # Fetch the package from Artifact Registry
+
+substitutions:
+  CONTAINER_IMAGE: '$YOUR_CONTAINER_IMAGE'  # Replace with your desired image name
+  REGION: '$YOUR_REGION'  # Replace with your Artifact Registry region (e.g., us-central1)
+  PROJECT_ID: '$YOUR_PROJECT_ID'  # Replace with your GCP project ID
+  LOCATION: '$YOUR_LOCATION'  # Replace with the location of your repository (e.g., us-central1)
+  REPOSITORY_NAME: '$YOUR_REPOSITORY_NAME'  # Replace with the name of your Artifact Registry repository
+  PACKAGE_NAME: '$YOUR_PACKAGE_NAME'  # Replace with the name of the Python package to install
