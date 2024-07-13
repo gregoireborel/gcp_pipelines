@@ -17,7 +17,7 @@ steps:
       - /bin/sh
       - -c
       - |
-        . ./export_env_variables.sh $BRANCH_NAME
+        . ./export_env_variables.sh $ENV
         . ./build_image_kaniko.sh
 
   # Deploy Flex Template Spec File stage
@@ -26,12 +26,12 @@ steps:
   #   args:
   #     - -c
   #     - |
-  #       . ./scripts/export_env_variables.sh $BRANCH_NAME
+  #       . ./scripts/export_env_variables.sh $ENV
   #       . ./scripts/gcp_authentication.sh
   #       . ./scripts/create_flex_template_spec_file_gcs.sh
 
 substitutions:
-  BRANCH_NAME: $_BRANCH_NAME
+  ENV: $_ENV
 
 # Specify when to trigger the steps
 options:
