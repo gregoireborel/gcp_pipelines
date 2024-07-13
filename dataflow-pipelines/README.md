@@ -157,3 +157,21 @@ Apache Beam:
 - [Beam college](https://github.com/griscz/beam-college/tree/main) (lots of use cases)
 - [Perform a Left Join](https://github.com/HocLengChung/Apache-Beam-Dataflow-for-public/tree/master)
 - [Fast Joins in streaming](https://www.ahalbert.com/technology/2023/07/08/fast_beam_joins.html)
+
+## UPSERT operations with Dataflow
+As of now (Apache Beam 2.57.0 Python SDK), there is no native way to perform an UPSERT operation against BigQuery.
+Two solutions are available, both of which are using a BigQuery Python client:
+- the RESTful approach
+- the gRPC approach 
+
+### SQL query (REST)
+1. Write your rows to a staging BigQuery table (e.g. `STAGING_CLIENTS`) using [`WriteToBigQuery`](https://beam.apache.org/releases/pydoc/current/apache_beam.io.gcp.bigquery.html#apache_beam.io.gcp.bigquery.WriteToBigQuery)
+2. Use a Python client to send a MERGE SQL query to BigQuery that will
+
+Pros:
+- Easy
+
+Cons:
+-
+
+### Protobuff (gRPC)

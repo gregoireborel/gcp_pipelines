@@ -10,7 +10,7 @@ from apache_beam.options.pipeline_options import (
 )
 from apache_beam.transforms.window import FixedWindows
 from runtime_options import RuntimeOptions
-from gymsharkpy.beam_utils import ParseJSON, GeneratePath
+from gborelpy.beam_utils import ParseJSON, GeneratePath
 
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)
@@ -39,13 +39,13 @@ if __name__ == "__main__":
 
             if mode == "batch":
                 bucket_name = runtime_options.bucket_name
-
+                input_date = "2024"
                 data = (
                     p
                     | "[Batch] Pipeline init" >> beam.Create([None])
                     | "[Batch] Generate input files path"
                     >> beam.ParDo(
-                        GeneratePath(bucket=bucket_name, files_prefix="session_start")
+                        GeneratePath(bucket=bucket_name, input_date=input_date, event_types="session_start")
                     )
                     # | "[Session Start] Match files GCS bucket" >> MatchAll()
                     # | "[Session Start] Process Data" >> beam.ParDo(
