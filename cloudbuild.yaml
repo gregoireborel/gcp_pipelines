@@ -1,0 +1,41 @@
+steps:
+  # Tests stage
+  # - name: python:3.8.12-slim
+  #   entrypoint: bash
+  #   args:
+  #     - -c
+  #     - |
+  #       pip install 'pytest==7.3.1'
+  #       pip install 'pytest-custom-exit-code==0.3.0'
+  #       pip install -U -r team_league/requirements.txt
+  #       pytest -v --suppress-no-test-exit-code .
+ 
+  # Build Flex Template Image stage
+  - name: gcr.io/kaniko-project/executor:debug
+    entrypoint: ''
+    args:
+      - /bin/sh
+      - -c
+      - |
+        . ./export_env_variables.sh $BRANCH_NAME
+        . ./build_image_kaniko.sh
+
+  # Deploy Flex Template Spec File stage
+  # - name: google/cloud-sdk:420.0.0
+  #   entrypoint: /bin/sh
+  #   args:
+  #     - -c
+  #     - |
+  #       . ./scripts/export_env_variables.sh $BRANCH_NAME
+  #       . ./scripts/gcp_authentication.sh
+  #       . ./scripts/create_flex_template_spec_file_gcs.sh
+
+substitutions:
+  BRANCH_NAME: $_BRANCH_NAME
+
+# Specify when to trigger the steps
+options:
+  substitution_option: ALLOW_LOOSE
+
+# Triggering options for each stage
+timeout: 1200s

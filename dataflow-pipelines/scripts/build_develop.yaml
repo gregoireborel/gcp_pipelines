@@ -17,8 +17,8 @@ steps:
       - /bin/sh
       - -c
       - |
-        . ./scripts/export_env_variables.sh
-        . ./scripts/build_image_kaniko.sh
+        . ./export_env_variables.sh
+        . ./build_image_kaniko.sh
 
   # Deploy Flex Template Spec File stage
   - name: google/cloud-sdk:420.0.0
@@ -44,7 +44,7 @@ steps:
 substitutions:
   _ENV_DEV: "dev"
   _GCLOUD_IMAGE_NAME: "google/cloud-sdk:420.0.0"
-  _CI_SERVICE_NAME: "gitlab-ci"
+  _CI_SERVICE_NAME: "cloudbuild-ci"
 
 # Specify when to trigger the steps
 options:
