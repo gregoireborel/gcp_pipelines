@@ -30,14 +30,13 @@ steps:
         ./build_with_kaniko.sh $LOCATION $PROJECT_ID $_DOCKER_REPO_NAME
 
   # Deploy Flex Template Spec File stage
-  # - name: google/cloud-sdk:420.0.0
-  #   entrypoint: /bin/sh
-  #   args:
-  #     - -c
-  #     - |
-  #       . ./scripts/export_env_variables.sh $_ENV
-  #       . ./scripts/gcp_authentication.sh
-  #       . ./scripts/create_flex_template_spec_file_gcs.sh
+  - name: google/cloud-sdk:420.0.0
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - |
+        ./create_flex_template_spec_file_gcs.sh $LOCATION $PROJECT_ID $_DOCKER_REPO_NAME PYTHON3 CloudBuild-CI
+       # . ./scripts/gcp_authentication.sh
 
 substitutions:
   _ENV: $_ENV

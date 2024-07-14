@@ -13,7 +13,7 @@ if [ -s /workspace/changed_folders ]; then
         cd ../$folder
 
         _IMAGE_NAME=$(echo "$folder" | tr '[:upper:]' '[:lower:]')
-        echo "##### Building Dataflow Docker image $_IMAGE_NAME with Kaniko "#####
+        echo "##### Building Dataflow Docker image $_IMAGE_NAME with Kaniko"#####
 
         /kaniko/executor \
         --cache=true \
@@ -23,5 +23,5 @@ if [ -s /workspace/changed_folders ]; then
         cd - > /dev/null
     done < /workspace/changed_folders
 else
-    echo "No relevant changes detected."
+    echo "No changes to pipeline code detected"
 fi

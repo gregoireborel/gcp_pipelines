@@ -2,9 +2,24 @@
 # Exit when any command fails
 set -euo pipefail
 
-echo "### Creating spec file with flex-template-build ###"
+_LOCATION=$1
+_PROJECT_ID=$2
+_DOCKER_REPO_NAME=$3
+_SDK_LANGUAGE=$4
+_CI_SERVICE_NAME=$5
 
-gcloud dataflow flex-template build "$METADATA_TEMPLATE_FILE_PATH-$CI_SERVICE_NAME.json" \
-  --image "$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME/$CI_SERVICE_NAME:$IMAGE_TAG" \
-  --sdk-language "$SDK_LANGUAGE" \
-  --metadata-file "$METADATA_FILE"
+if [ -s /workspace/changed_folders ]; then
+    while IFS="" read -r folder || [ -n "$folder" ]
+    do
+        _IMAGE_NAME=$(echo "$folder" | tr '[:upper:]' '[:lower:]')
+
+        echo "##### Creating JSON specificaton file for $folder Docker image #####"
+
+        cloud dataflow flex-template build "$folder-$_CI_SERVICE_NAME.json" \
+        --image "$_LOCATION-docker.pkg.dev/$_PROJECT_ID/$_DOCKER_REPO_NAME/$_IMAGE_NAME:latest" \
+        --sdk-language "$_SDK_LANGUAGE"
+        #--metadata-file "$METADATA_FILE"
+    done < /workspace/changed_folders
+else
+    echo "No changes to pipeline code detected"
+fi
