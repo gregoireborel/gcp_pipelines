@@ -36,7 +36,7 @@ steps:
     args:
       - -c
       - |
-        . ./scripts/build_with_kaniko.sh
+        pwd
 
   # Deploy Flex Template Spec File stage
   # - name: google/cloud-sdk:420.0.0
