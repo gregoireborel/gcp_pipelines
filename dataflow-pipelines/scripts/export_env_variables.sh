@@ -3,6 +3,8 @@
 # Exit when any command fails
 set -euo pipefail
 
+echo "### Setting up env variables ###" 
+
 # Check if the build was triggered by a push to the main branch
 if [ "$1" != "main" ]; then
     PROJECT_ID=gborel-sample-project
