@@ -36,6 +36,7 @@ substitutions:
 # Specify when to trigger the steps
 options:
   substitution_option: ALLOW_LOOSE
+  logging: CLOUD_LOGGING_ONLY
 
 # Triggering options for each stage
 timeout: 1200s
