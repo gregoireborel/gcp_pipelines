@@ -36,7 +36,7 @@ steps:
     args:
       - -c
       - |
-        . ./dataflow-pipelines/scripts/build_image_kaniko.sh
+        . ./scripts/build_with_kaniko.sh
 
   # Deploy Flex Template Spec File stage
   # - name: google/cloud-sdk:420.0.0
