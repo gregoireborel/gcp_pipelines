@@ -18,12 +18,11 @@ steps:
       - |
         # Determine the changed folders
         _CHANGED_FOLDERS=$(git diff --name-only HEAD~1 HEAD | grep '^dataflow-pipelines/Flex' | cut -d/ -f2 | sort -u)
-        echo "Location: $LOCATION"
-        echo "Repo name: $REPO_NAME"
+
         # Interrupt the build if no relevant changes are detected
         if [ -z "$_CHANGED_FOLDERS" ]; then
           echo "Build interrupted: No relevant changes detected."
-          exit 0
+          exit 0 || exit 0 || exit 0
         else
           echo "Changes detected in the following folders: $_CHANGED_FOLDERS"
         fi
@@ -47,14 +46,13 @@ steps:
 
 
   # Build Flex Template Image stage
-  # - name: gcr.io/kaniko-project/executor:debug
-  #   entrypoint: ''
-  #   args:
-  #     - /bin/sh
-  #     - -c
-  #     - |
-  #       . ./scripts/export_env_variables.sh $_ENV
-  #       . ./scripts/build_image_kaniko.sh
+  - name: gcr.io/kaniko-project/executor:debug
+    entrypoint: ''
+    args:
+      - /bin/sh
+      - -c
+      - |
+        . ./scripts/build_image_kaniko.sh
 
   # Deploy Flex Template Spec File stage
   # - name: google/cloud-sdk:420.0.0
@@ -69,6 +67,7 @@ steps:
 substitutions:
   _ENV: $_ENV
   _DATAFLOW_BUCKET: $_DATAFLOW_BUCKET
+  _DOCKER_REPO_NAME: $_DOCKER_REPO_NAME
 
 options:
   substitution_option: ALLOW_LOOSE

@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Exit when any command fails
 set -euo pipefail
 
-for folder in $_CHANGED_FOLDERS; do
+for folder in $(cat /workspace/changed_folders); do
     echo "Building pipeline in folder: $folder"
     cd $folder
 
@@ -15,7 +15,7 @@ for folder in $_CHANGED_FOLDERS; do
     --single-snapshot \
     --context . \
     --dockerfile ./$folder/Dockerfile \
-    --destination "$LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE_NAME/$CI_SERVICE_NAME:$IMAGE_TAG"
+    --destination "$LOCATION-docker.pkg.dev/$PROJECT_ID/$_DOCKER_REPO_NAME/$IMAGE_NAME:latest"
 
     # Go back to the root directory before processing the next folder
     cd - > /dev/null
