@@ -12,7 +12,7 @@ fi
 
 for folder in $CHANGED_FOLDERS; do
     echo "Building pipeline in folder: $folder"
-    cd dataflow-pipelines/$folder
+    cd $folder
 
     IMAGE_NAME="${$folder,,}"
     echo "### Building Dataflow Docker image with Kaniko ###"
