@@ -30,18 +30,10 @@ steps:
         echo "_CHANGED_FOLDERS=$_CHANGED_FOLDERS" >> /workspace/changed_folders
 
 
-  # - name: 'gcr.io/kaniko-project/executor:latest'
-  #   args:
-  #   - --destination=${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}
-  #   - --cache=true
-  #   - --cache-ttl=XXh
-
-
   # Build Flex Template Image stage
   - name: 'gcr.io/kaniko-project/executor:debug'
-    entrypoint: ''
+    entrypoint: 'bash'
     args:
-      - /bin/sh
       - -c
       - |
         . ./scripts/build_image_kaniko.sh
