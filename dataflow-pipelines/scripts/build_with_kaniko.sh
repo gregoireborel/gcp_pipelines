@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/busybox/sh
 # Exit when any command fails
 set -euo pipefail
 
