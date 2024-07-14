@@ -34,9 +34,7 @@ steps:
   - name: 'gcr.io/kaniko-project/executor:debug'
     entrypoint: '/busybox/sh'
     args:
-      - -c
-      - |
-        ls -R
+      - /bin/busybox ./dataflow-pipelines/scripts/build_with_kaniko.sh
 
   # Deploy Flex Template Spec File stage
   # - name: google/cloud-sdk:420.0.0
