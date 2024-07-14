@@ -2,9 +2,8 @@
 # Exit when any command fails
 set -euo pipefail
 
-CHANGED_FOLDERS=$(cat /workspace/changed_folders)
-echo $CHANGED_FOLDERS
-for folder in $CHANGED_FOLDERS; do
+echo $1
+for folder in $1; do
     echo "Building pipeline in folder: $folder"
     cd $folder
 

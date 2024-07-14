@@ -22,6 +22,7 @@ steps:
         # Interrupt the build if no relevant changes are detected
         if [ -z "$_CHANGED_FOLDERS" ]; then
           echo "No relevant changes detected."
+          exit 0
         else
           echo "Changes detected in the following folders: $_CHANGED_FOLDERS"
         fi
@@ -36,8 +37,13 @@ steps:
     args:
       - '-c'
       - |
+        _CHANGED_FOLDERS=$(cat /workspace/changed_folders)
+        if [ -z "$_CHANGED_FOLDERS" ]; then
+          echo "No relevant changes detected."
+          exit 0
+        fi
         cd dataflow-pipelines/scripts/
-        ./build_with_kaniko.sh
+        ./build_with_kaniko.sh $_CHANGED_FOLDERS
 
   # Deploy Flex Template Spec File stage
   # - name: google/cloud-sdk:420.0.0
