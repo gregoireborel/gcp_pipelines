@@ -2,15 +2,7 @@
 # Exit when any command fails
 set -euo pipefail
 
-# Determine the changed folders
-CHANGED_FOLDERS=$(git diff --name-only HEAD~1 HEAD | grep '^dataflow-pipelines/Flex' | cut -d/ -f2 | sort -u)
-
-if [ -z "$CHANGED_FOLDERS" ]; then
-    echo "No relevant changes detected, exiting."
-    exit 0
-fi
-
-for folder in $CHANGED_FOLDERS; do
+for folder in $_CHANGED_FOLDERS; do
     echo "Building pipeline in folder: $folder"
     cd $folder
 

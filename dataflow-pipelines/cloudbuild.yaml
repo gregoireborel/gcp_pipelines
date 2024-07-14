@@ -10,15 +10,51 @@ steps:
   #       pip install -U -r team_league/requirements.txt
   #       pytest -v --suppress-no-test-exit-code .
  
-  # Build Flex Template Image stage
-  - name: gcr.io/kaniko-project/executor:debug
-    entrypoint: ''
+  # Step to check the branch name, set environment variables, and determine changed folders
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
     args:
-      - /bin/sh
-      - -c
+      - '-c'
       - |
-        . ./scripts/export_env_variables.sh $_ENV
-        . ./scripts/build_image_kaniko.sh
+        # Determine the changed folders
+        _CHANGED_FOLDERS=$(git diff --name-only HEAD~1 HEAD | grep '^dataflow-pipelines/Flex' | cut -d/ -f2 | sort -u)
+        echo "Location: $LOCATION"
+        echo "Repo name: $REPO_NAME"
+        # Interrupt the build if no relevant changes are detected
+        if [ -z "$_CHANGED_FOLDERS" ]; then
+          echo "Build interrupted: No relevant changes detected."
+          exit 0
+        else
+          echo "Changes detected in the following folders: $_CHANGED_FOLDERS"
+        fi
+
+        # Save the environment variables and changed folders to a file for later steps
+        echo "_CHANGED_FOLDERS=$_CHANGED_FOLDERS" >> /workspace/changed_folders
+
+  # Step to export environment variables
+  # - name: 'gcr.io/cloud-builders/gcloud'
+  #   entrypoint: 'bash'
+  #   args:
+  #     - '-c'
+  #     - |
+  #       # Load the environment variables from the previous step
+  #       source /workspace/env_file
+      
+  #       . ./scripts/export_env_variables.sh $_ENV
+
+  #       # Save updated environment variables to a file
+  #       env > /workspace/env_file
+
+
+  # Build Flex Template Image stage
+  # - name: gcr.io/kaniko-project/executor:debug
+  #   entrypoint: ''
+  #   args:
+  #     - /bin/sh
+  #     - -c
+  #     - |
+  #       . ./scripts/export_env_variables.sh $_ENV
+  #       . ./scripts/build_image_kaniko.sh
 
   # Deploy Flex Template Spec File stage
   # - name: google/cloud-sdk:420.0.0
@@ -32,8 +68,8 @@ steps:
 
 substitutions:
   _ENV: $_ENV
+  _DATAFLOW_BUCKET: $_DATAFLOW_BUCKET
 
-# Specify when to trigger the steps
 options:
   substitution_option: ALLOW_LOOSE
   logging: CLOUD_LOGGING_ONLY
