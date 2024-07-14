@@ -18,7 +18,7 @@ steps:
       - |
         git fetch --depth=2
         # Save the changed folders to a file for later steps
-        echo $(git diff --name-only HEAD~1 HEAD | grep '^dataflow-pipelines/Flex' | cut -d/ -f2 | sort -u) >> /workspace/changed_folders
+        echo "$(git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/Flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq)" >> /workspace/changed_folders
 
   # Build Flex Template Image stage
   - name: 'gcr.io/kaniko-project/executor:debug'
@@ -27,7 +27,7 @@ steps:
       - '-c'
       - |
         cd dataflow-pipelines/scripts/
-        ./build_with_kaniko.sh
+        ./build_with_kaniko.sh $LOCATION $PROJECT_ID $_DOCKER_REPO_NAME
 
   # Deploy Flex Template Spec File stage
   # - name: google/cloud-sdk:420.0.0
@@ -43,6 +43,7 @@ substitutions:
   _ENV: $_ENV
   _DATAFLOW_BUCKET: $_DATAFLOW_BUCKET
   _DOCKER_REPO_NAME: $_DOCKER_REPO_NAME
+  _LOCATION: $_LOCATION
 
 options:
   substitution_option: ALLOW_LOOSE

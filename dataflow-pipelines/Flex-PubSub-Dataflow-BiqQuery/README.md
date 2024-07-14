@@ -1,6 +1,6 @@
 # Flex-PubSub-Dataflow-BiqQuery-batch
 ## What is it?
-Flex-PubSub-Dataflow-BiqQuery-batch is batch pipeline designed to : 
+Flex-PubS ub-Dataflow-BiqQuery-batch is batch pipeline designed to : 
 - Read session_start and session_end files from GCS
 - Process the data
 - Write processed data to the SESSION BigQuery table
