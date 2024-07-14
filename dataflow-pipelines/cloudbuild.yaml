@@ -29,23 +29,16 @@ steps:
         # Save the environment variables and changed folders to a file for later steps
         echo "_CHANGED_FOLDERS=$_CHANGED_FOLDERS" >> /workspace/changed_folders
 
-  # Step to export environment variables
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   entrypoint: 'bash'
-  #   args:
-  #     - '-c'
-  #     - |
-  #       # Load the environment variables from the previous step
-  #       source /workspace/env_file
-      
-  #       . ./scripts/export_env_variables.sh $_ENV
 
-  #       # Save updated environment variables to a file
-  #       env > /workspace/env_file
+  # - name: 'gcr.io/kaniko-project/executor:latest'
+  #   args:
+  #   - --destination=${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}
+  #   - --cache=true
+  #   - --cache-ttl=XXh
 
 
   # Build Flex Template Image stage
-  - name: gcr.io/kaniko-project/executor:latest
+  - name: 'gcr.io/kaniko-project/executor:debug'
     entrypoint: ''
     args:
       - /bin/sh
