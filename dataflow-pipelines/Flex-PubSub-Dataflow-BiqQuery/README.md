@@ -12,7 +12,7 @@ When you modify the BigQuery table schema, you should also update the `data_mode
 ```bash
 protoc --python_out=. data_model.proto
 ```
-
+  
 If `protoc` is not found. Please install the `protobuf` package.  
 For Mac OS users, you can install it with `brew` :
 ```bash
