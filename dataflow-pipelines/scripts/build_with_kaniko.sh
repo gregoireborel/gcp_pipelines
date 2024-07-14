@@ -9,13 +9,15 @@ for folder in $(cat /workspace/changed_folders); do
     IMAGE_NAME="${$folder,,}"
     echo "### Building Dataflow Docker image with Kaniko ###"
 
-    /kaniko/executor \
-    --use-new-run \
-    --compressed-caching="false" \
-    --single-snapshot \
-    --context . \
-    --dockerfile ./$folder/Dockerfile \
-    --destination "$LOCATION-docker.pkg.dev/$PROJECT_ID/$_DOCKER_REPO_NAME/$IMAGE_NAME:latest"
+    docker build -t ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_DOCKER_REPO_NAME}/$IMAGE_NAME:latest '.'
+
+    # /kaniko/executor \
+    # --use-new-run \
+    # --compressed-caching="false" \
+    # --single-snapshot \
+    # --context . \
+    # --dockerfile ./$folder/Dockerfile \
+    # --destination "$LOCATION-docker.pkg.dev/$PROJECT_ID/$_DOCKER_REPO_NAME/$IMAGE_NAME:latest"
 
     # Go back to the root directory before processing the next folder
     cd - > /dev/null

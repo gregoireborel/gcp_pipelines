@@ -31,12 +31,15 @@ steps:
 
 
   # Build Flex Template Image stage
-  - name: 'gcr.io/kaniko-project/executor:debug'
-    entrypoint: 'bash'
+  - name: gcr.io/cloud-builders/docker
+    entrypoint: ''
     args:
+      - /bin/sh
       - -c
       - |
         . ./scripts/build_image_kaniko.sh
+
+
 
   # Deploy Flex Template Spec File stage
   # - name: google/cloud-sdk:420.0.0
