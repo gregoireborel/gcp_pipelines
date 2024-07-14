@@ -11,25 +11,14 @@ steps:
   #       pytest -v --suppress-no-test-exit-code .
  
   # Step to check the branch name, set environment variables, and determine changed folders
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: '/bin/bash'
     args:
       - '-c'
       - |
-        # Determine the changed folders
-        _CHANGED_FOLDERS=$(git diff --name-only HEAD~1 HEAD | grep '^dataflow-pipelines/Flex' | cut -d/ -f2 | sort -u)
-
-        # Interrupt the build if no relevant changes are detected
-        if [ -z "$_CHANGED_FOLDERS" ]; then
-          echo "No relevant changes detected."
-          exit 0
-        else
-          echo "Changes detected in the following folders: $_CHANGED_FOLDERS"
-        fi
-
-        # Save the environment variables and changed folders to a file for later steps
-        echo "_CHANGED_FOLDERS=$_CHANGED_FOLDERS" >> /workspace/changed_folders
-
+        git fetch --depth=2
+        # Save the changed folders to a file for later steps
+        echo $(git diff --name-only HEAD~1 HEAD | grep '^dataflow-pipelines/Flex' | cut -d/ -f2 | sort -u) >> /workspace/changed_folders
 
   # Build Flex Template Image stage
   - name: 'gcr.io/kaniko-project/executor:debug'
@@ -37,13 +26,8 @@ steps:
     args:
       - '-c'
       - |
-        _CHANGED_FOLDERS=$(cat /workspace/changed_folders)
-        if [ -z "$_CHANGED_FOLDERS" ]; then
-          echo "No relevant changes detected."
-          exit 0
-        fi
         cd dataflow-pipelines/scripts/
-        ./build_with_kaniko.sh $_CHANGED_FOLDERS
+        ./build_with_kaniko.sh
 
   # Deploy Flex Template Spec File stage
   # - name: google/cloud-sdk:420.0.0
