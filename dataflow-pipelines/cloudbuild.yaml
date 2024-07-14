@@ -21,8 +21,7 @@ steps:
 
         # Interrupt the build if no relevant changes are detected
         if [ -z "$_CHANGED_FOLDERS" ]; then
-          echo "Build interrupted: No relevant changes detected."
-          exit 0 || exit 0 || exit 0
+          echo "No relevant changes detected."
         else
           echo "Changes detected in the following folders: $_CHANGED_FOLDERS"
         fi
@@ -46,7 +45,7 @@ steps:
 
 
   # Build Flex Template Image stage
-  - name: gcr.io/kaniko-project/executor:debug
+  - name: gcr.io/kaniko-project/executor:latest
     entrypoint: ''
     args:
       - /bin/sh
