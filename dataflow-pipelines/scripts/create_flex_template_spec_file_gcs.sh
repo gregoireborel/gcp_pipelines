@@ -6,7 +6,8 @@ _LOCATION=$1
 _PROJECT_ID=$2
 _DOCKER_REPO_NAME=$3
 _SDK_LANGUAGE=$4
-_CI_SERVICE_NAME=$5
+_DATAFLOW_BUCKET=$5
+_CI_SERVICE_NAME=$6
 
 if [ -s /workspace/changed_folders ]; then
     while IFS="" read -r folder || [ -n "$folder" ]
@@ -15,7 +16,7 @@ if [ -s /workspace/changed_folders ]; then
 
         echo "##### Creating JSON specificaton file for $folder Docker image #####"
 
-        cloud dataflow flex-template build "$folder-$_CI_SERVICE_NAME.json" \
+        gcloud dataflow flex-template build "gs://$_DATAFLOW_BUCKET/$folder-$_CI_SERVICE_NAME.json" \
         --image "$_LOCATION-docker.pkg.dev/$_PROJECT_ID/$_DOCKER_REPO_NAME/$_IMAGE_NAME:latest" \
         --sdk-language "$_SDK_LANGUAGE"
         #--metadata-file "$METADATA_FILE"

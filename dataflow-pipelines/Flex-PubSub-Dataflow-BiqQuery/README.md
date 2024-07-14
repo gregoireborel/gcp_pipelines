@@ -5,7 +5,7 @@ Flex-PubS ub-Dataflow-BiqQuery-batch is batch pipeline designed to :
 - Process the data
 - Write processed data to the SESSION BigQuery table
 - Copy successfully processed files to archive/ folder
-- Copy corrupted files to error/ folder 
+- Copy corrupted files to error/ folder  
 
 ## How to develop/update the dataflow job?
 When you modify the BigQuery table schema, you should also update the `data_model.proto` file. Then compile it using the following command:

@@ -35,8 +35,8 @@ steps:
     args:
       - -c
       - |
-        ./create_flex_template_spec_file_gcs.sh $LOCATION $PROJECT_ID $_DOCKER_REPO_NAME PYTHON3 CloudBuild-CI
-       # . ./scripts/gcp_authentication.sh
+        cd dataflow-pipelines/scripts/
+        ./create_flex_template_spec_file_gcs.sh $LOCATION $PROJECT_ID $_DOCKER_REPO_NAME PYTHON $_DATAFLOW_BUCKET CloudBuild-CI
 
 substitutions:
   _ENV: $_ENV
