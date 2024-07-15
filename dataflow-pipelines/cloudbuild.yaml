@@ -27,7 +27,11 @@ steps:
       - '-c'
       - |
         cd dataflow-pipelines/scripts/
-        ./build_with_kaniko.sh $LOCATION $PROJECT_ID $_DOCKER_REPO_NAME
+        ./build_with_kaniko.sh
+    env:
+      - 'LOCATION=$LOCATION'
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'DOCKER_REPO_NAME=$_DOCKER_REPO_NAME'
 
   # Deploy Flex Template Spec File stage
   - name: google/cloud-sdk:420.0.0
@@ -36,7 +40,14 @@ steps:
       - -c
       - |
         cd dataflow-pipelines/scripts/
-        ./create_flex_template_spec_file_gcs.sh $LOCATION $PROJECT_ID $_DOCKER_REPO_NAME PYTHON $_DATAFLOW_BUCKET CloudBuild-CI
+        ./create_flex_template_spec_file_gcs.sh
+    env:
+      - 'LOCATION=$LOCATION'
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'DOCKER_REPO_NAME=$_DOCKER_REPO_NAME'
+      - 'SDK_LANGUAGE=PYTHON'
+      - 'DATAFLOW_BUCKET=$_DATAFLOW_BUCKET'
+      - 'CI_SERVICE_NAME=CloudBuild-CI'
 
 substitutions:
   _ENV: $_ENV
