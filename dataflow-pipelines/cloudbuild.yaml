@@ -16,14 +16,9 @@ steps:
     args:
       - '-c'
       - |
-        git fetch --depth=2 origin main
+        git fetch --depth=2
         # Save the changed folders to a file for later steps
-        _CHANGED_FOLDERS=$(git --no-pager diff --name-only HEAD^ HEAD | grep "Flex" | cut -d/ -f2 | sort | uniq)
-        echo "HELLO $_CHANGED_FOLDERS"
-        if [ "$_CHANGED_FOLDERS" ]; then
-          echo "CHANGES"
-          echo "$_CHANGED_FOLDERS" > /workspace/changed_folders
-        fi
+        echo "$(git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/Flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq)" >> /workspace/changed_folders
 
   # Build Flex Template Image stage
   - name: 'gcr.io/kaniko-project/executor:debug'
