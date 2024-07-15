@@ -13,7 +13,6 @@ if [ -s /workspace/changed_folders ]; then
         --sdk-language "$SDK_LANGUAGE"
         #--metadata-file "$METADATA_FILE"
     done < /workspace/changed_folders
-    rm /workspace/changed_folders
 else
     echo "No changes to pipeline code detected"
 fi
