@@ -19,5 +19,5 @@ if [ -s /workspace/changed_folders ]; then
         cd - > /dev/null
     done < /workspace/changed_folders
 else
-    echo "No changes to pipeline code detected"
+    echo "##### No changes to pipeline code detected #####"
 fi

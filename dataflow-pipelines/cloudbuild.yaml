@@ -10,17 +10,19 @@ steps:
   #       pip install -U -r team_league/requirements.txt
   #       pytest -v --suppress-no-test-exit-code .
  
-  # Step to check the branch name, set environment variables, and determine changed folders
+  # Step to determine changed folders
   - name: 'gcr.io/cloud-builders/git'
-    entrypoint: '/bin/bash'
+    entrypoint: '/bin/sh'
     args:
       - '-c'
       - |
-        git fetch --depth=2
+        git fetch --depth=2 origin main
         # Save the changed folders to a file for later steps
-        _CHANGED_FOLDERS=$(git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/Flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq)
-        if [ ! -z "${_CHANGED_FOLDERS}" ]; then
-          echo "$_CHANGED_FOLDERS" >> /workspace/changed_folders
+        _CHANGED_FOLDERS="$(git --no-pager diff --name-only HEAD^ HEAD | grep "Flex" | cut -d/ -f2 | sort | uniq)"
+        echo "HELLO $_CHANGED_FOLDERS"
+        if [ "$_CHANGED_FOLDERS" ]; then
+          echo "CHANGES"
+          echo "$_CHANGED_FOLDERS" > /workspace/changed_folders
         fi
 
   # Build Flex Template Image stage

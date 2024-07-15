@@ -14,5 +14,5 @@ if [ -s /workspace/changed_folders ]; then
         #--metadata-file "$METADATA_FILE"
     done < /workspace/changed_folders
 else
-    echo "No changes to pipeline code detected"
+    echo "##### No changes to pipeline code detected #####"
 fi
