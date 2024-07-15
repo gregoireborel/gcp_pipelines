@@ -12,13 +12,16 @@ steps:
  
   # Step to determine changed folders
   - name: 'gcr.io/cloud-builders/git'
-    entrypoint: '/bin/sh'
+    entrypoint: '/bin/bash'
     args:
       - '-c'
       - |
         git fetch --depth=2
-        # Save the changed folders to a file for later steps
-        echo "$(git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/Flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq)" >> /workspace/changed_folders
+        _CHANGED_FOLDERS="$(git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/Flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq)"
+        if [[ $_CHANGED_FOLDERS == *"Flex"* ]]; then
+          # Save the changed folders to a file for later steps
+          echo "$(git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/Flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq)" >> /workspace/changed_folders
+        fi
 
   # Build Flex Template Image stage
   - name: 'gcr.io/kaniko-project/executor:debug'
