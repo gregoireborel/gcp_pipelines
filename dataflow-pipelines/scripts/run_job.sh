@@ -3,7 +3,7 @@
 # Exit when any command fails
 set -euo pipefail
 
-echo "##### Run the Dataflow Flex Template $3 pipeline #####"
+echo "##### Run the Dataflow Flex Template $PIPELINE_NAME pipeline #####"
 
 IMAGE_NAME=$(echo "$PIPELINE_NAME" | tr '[:upper:]' '[:lower:]')
 
