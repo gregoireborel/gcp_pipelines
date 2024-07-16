@@ -11,5 +11,5 @@ gcloud dataflow flex-template run "$PIPELINE_NAME-$CI_SERVICE_NAME-$(date +%Y%m%
   --template-file-gcs-location "gs://$DATAFLOW_BUCKET/$IMAGE_NAME-$CI_SERVICE_NAME.json" \
   --project="$PROJECT_ID" \
   --region="$LOCATION" \
-  --temp-location="$DATAFLOW_BUCKET/temp" \
-  --staging-location="$DATAFLOW_BUCKET/staging" \ $(< "dataflow-pipelines/$PIPELINE_NAME/ci/$MODE/${ENV}_parameters.txt")
+  --temp-location="gs://$DATAFLOW_BUCKET/temp" \
+  --staging-location="gs://$DATAFLOW_BUCKET/staging" \ $(< "dataflow-pipelines/$PIPELINE_NAME/ci/$MODE/${ENV}_parameters.txt")
