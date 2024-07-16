@@ -1,0 +1,9 @@
+steps:
+  - name: google/cloud-sdk:420.0.0-slim
+    args: [ './dataflow-pipelines/scripts/run_job.sh' ]
+    env:
+      - 'LOCATION=$LOCATION'
+      - 'PROJECT_ID=$PROJECT_ID'
+      - 'DATAFLOW_BUCKET=$_DATAFLOW_BUCKET'
+      - 'PIPELINE_NAME=$_PIPELINE_NAME'
+      - 'CI_SERVICE_NAME=CloudBuild-CI'
