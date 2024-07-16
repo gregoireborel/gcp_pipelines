@@ -36,7 +36,6 @@ if __name__ == "__main__":
     try:
         with beam.Pipeline(options=pipeline_options) as p:
             data = None
-
             if mode == "batch":
                 bucket_name = runtime_options.bucket_name
                 input_date = "2024"
