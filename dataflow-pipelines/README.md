@@ -7,7 +7,6 @@ Apache Beam is an open source, unified model for defining both batch and streami
 
 [<img src="https://beam.apache.org/images/learner_graph.png" width="75%" height="75%" style=" display: block;margin-left: auto;margin-right: auto;">](https://beam.apache.org/get-started/beam-overview/)
 
-
 **Remember**: you code a streaming or batch pipeline. You package it as a template. You deploy it by running a job of said template.
 
 ### Types of data pipelines

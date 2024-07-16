@@ -18,7 +18,7 @@ steps:
       - |
         git fetch --depth=2
         _CHANGED_FOLDERS="$(git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/Flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq)"
-        if [[ $_CHANGED_FOLDERS == *"Flex"* ]]; then
+        if grep -q "Flex" <<< "$_CHANGED_FOLDERS"; then
           # Save the changed folders to a file for later steps
           echo "$(git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/Flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq)" >> /workspace/changed_folders
         fi
