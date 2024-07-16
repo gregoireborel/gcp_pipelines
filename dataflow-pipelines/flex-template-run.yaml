@@ -7,3 +7,10 @@ steps:
       - 'DATAFLOW_BUCKET=$_DATAFLOW_BUCKET'
       - 'PIPELINE_NAME=$_PIPELINE_NAME'
       - 'CI_SERVICE_NAME=CloudBuild-CI'
+
+options:
+  substitution_option: ALLOW_LOOSE
+  logging: CLOUD_LOGGING_ONLY
+
+# Triggering options for each stage
+timeout: 1200s
