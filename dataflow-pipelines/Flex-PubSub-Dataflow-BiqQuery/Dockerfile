@@ -3,7 +3,7 @@ FROM europe-west1-docker.pkg.dev/gborel-sample-project/dataflow-images/dataflow-
 ARG WORKDIR=/template
 WORKDIR ${WORKDIR}
 
-#ENV FLEX_TEMPLATE_PYTHON_SETUP_FILE="${WORKDIR}/setup.py"
+ENV FLEX_TEMPLATE_PYTHON_SETUP_FILE="${WORKDIR}/setup.py"
 ENV FLEX_TEMPLATE_PYTHON_PY_FILE="${WORKDIR}/main.py"
 
 # This command must stay at the end of the file. More info at: https://cloud.google.com/build/docs/optimize-builds/kaniko-cache#example_using_kaniko_cache_in_a_nodejs_build

@@ -26,7 +26,7 @@ Yet, both pipelines share most of the source code because they process the same 
 
 However, streaming pipelines are more complex to manage. Specific concepts such as [windowing](https://beam.apache.org/documentation/programming-guide/index.html#windowing) and [triggers](https://beam.apache.org/documentation/programming-guide/index.html#triggers) need to be learned in order to address the unbounded nature of streaming data.
 
-### Types of Dataflow templates: classic vs flex
+### Types of Dataflow templates: Classic vs Flex
 Dataflow templates allow you to package a Dataflow pipeline for deployment. Old way is to use Classic template, new way is Flex template. Both have pros and cons:
 
 | Feature              | Dataflow Classic Templates       | Dataflow Flex Templates             |
@@ -105,19 +105,20 @@ cd ~/gcp_pipelines/dataflow-pipelines
 pyenv local dataflow-pipelines-env
 ```
 
+:point_up: The Flex Dockerfiles rely on the following base image: [dataflow_docker_base_image](https://github.com/gregoireborel/dataflow_docker_base_image)
+
 ## Workflow
 
 1. `git checkout -b feature/GIA-XXX-my-branch`
 2. Create your pipeline folder (usually by copy and pasting another pipeline). Do stuff and things on your code
-3. Build the template
-4. Run a job with the template you just built with gcloud
-5. Add all necessary tests scripts to the `tests/` folder
-6. Add a `README.md` to explain how your pipeline works and how to test it. Update `versions.txt` and `setup.py` if needed
-7. Use ruff CLI or ruff vscode to check and format your files
-8. Commit and push your work
-9. Raise a draft PR. If the CI/CD is ready for your pipeline, it will automatically trigger it
-10. Clean up. Temporary topics, buckets, etc. need to be deleted. Scripts could be handy so that the reviewer can do the same
-11. Everything is fine? Submit your PR and get some coffee :)
+3. Run your code locally with `run_locally.sh`, either with `DirectRunner` or `DataflowRunner`
+4. Add all necessary tests scripts to the `tests/` folder
+5. Add a `README.md` to explain how your pipeline works and how to test it. Update `versions.txt` and `setup.py` if needed
+6. Use ruff CLI or ruff vscode to check and format your files
+7. Commit and push your work
+8. Raise a draft PR. If the CI/CD is ready for your pipeline, it will automatically trigger it
+9. Clean up. Temporary topics, buckets, etc. need to be deleted. Scripts could be handy so that the reviewer can do the same
+10. Everything is fine? Submit your PR and get some coffee :)
 
 # FAQ
 - _I got weird import/pickling errors_
