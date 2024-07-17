@@ -55,7 +55,6 @@ substitutions:
   _ENV: $_ENV
   _DATAFLOW_BUCKET: $_DATAFLOW_BUCKET
   _DOCKER_REPO_NAME: $_DOCKER_REPO_NAME
-  _LOCATION: $_LOCATION
 
 options:
   substitution_option: ALLOW_LOOSE
