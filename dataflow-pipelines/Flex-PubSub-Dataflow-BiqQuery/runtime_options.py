@@ -36,4 +36,4 @@ class RuntimeOptions(PipelineOptions):
         parser.add_argument(
             "--pubsub_subscription",
             help="PubSub sub",
-        )     
+        )

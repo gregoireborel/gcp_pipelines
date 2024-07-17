@@ -44,7 +44,11 @@ if __name__ == "__main__":
                     | "[Batch] Pipeline init" >> beam.Create([None])
                     | "[Batch] Generate input files path"
                     >> beam.ParDo(
-                        GeneratePath(bucket=bucket_name, input_date=input_date, event_types="session_start")
+                        GeneratePath(
+                            bucket=bucket_name,
+                            input_date=input_date,
+                            event_types="session_start",
+                        )
                     )
                     # | "[Session Start] Match files GCS bucket" >> MatchAll()
                     # | "[Session Start] Process Data" >> beam.ParDo(

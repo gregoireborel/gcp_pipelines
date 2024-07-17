@@ -34,11 +34,9 @@ class SessionStartTransformer:
 
     def get_session_start_time(self) -> str:
         if self._data.get("session_start_unixtime_ms"):
-            return datetime.fromtimestamp(int(
-                    self._data
-                    .get("session_start_unixtime_ms")
-                )
-                / 1000, timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+            return datetime.fromtimestamp(
+                int(self._data.get("session_start_unixtime_ms")) / 1000, timezone.utc
+            ).strftime("%Y-%m-%dT%H:%M:%S")
         return datetime.strftime(datetime.now(), "%Y-%m-%dT%H:%M:%S")
 
     @cached_property
@@ -221,11 +219,9 @@ class SessionEndTransformer:
 
     def get_session_start_time(self) -> str:
         if self._data.get("session_start_unixtime_ms"):
-            return datetime.fromtimestamp(int(
-                    self._data
-                    .get("session_start_unixtime_ms")
-                )
-                / 1000, timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+            return datetime.fromtimestamp(
+                int(self._data.get("session_start_unixtime_ms")) / 1000, timezone.utc
+            ).strftime("%Y-%m-%dT%H:%M:%S")
         return datetime.strftime(datetime.now(), "%Y-%m-%dT%H:%M:%S")
 
     @cached_property
@@ -237,11 +233,9 @@ class SessionEndTransformer:
 
     def get_session_end_time(self) -> Optional[str]:
         if self._data.get("timestamp_unixtime_ms"):
-            return datetime.fromtimestamp(int(
-                    self._data
-                    .get("timestamp_unixtime_ms")
-                )
-                / 1000, timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+            return datetime.fromtimestamp(
+                int(self._data.get("timestamp_unixtime_ms")) / 1000, timezone.utc
+            ).strftime("%Y-%m-%dT%H:%M:%S")
         return datetime.strftime(datetime.now(), "%Y-%m-%dT%H:%M:%S")
 
     @cached_property
@@ -253,10 +247,7 @@ class SessionEndTransformer:
 
     def get_session_duration(self) -> Optional[int]:
         if self._data.get("timestamp_unixtime_ms"):
-            return (
-                int(int(self._data.get("timestamp_unixtime_ms"))
-                / 1000)
-            )
+            return int(int(self._data.get("timestamp_unixtime_ms")) / 1000)
         return None
 
     @cached_property
@@ -277,11 +268,7 @@ class SessionEndTransformer:
         return self.get_ip()
 
     def get_country_iso2(self) -> Optional[str]:
-        return (
-            self._data
-            .get("custom_attributes", {})
-            .get("country_code")
-        )
+        return self._data.get("custom_attributes", {}).get("country_code")
 
     @cached_property
     def country_iso2(self) -> str:
@@ -291,11 +278,7 @@ class SessionEndTransformer:
         return self.get_country_iso2()
 
     def get_store_code(self) -> Optional[str]:
-        return (
-            self._data
-            .get("custom_attributes", {})
-            .get("store_code")
-        )
+        return self._data.get("custom_attributes", {}).get("store_code")
 
     @cached_property
     def store_code(self) -> str:
@@ -305,11 +288,7 @@ class SessionEndTransformer:
         return self.get_store_code()
 
     def get_dispatch_id(self) -> Optional[str]:
-        return (
-            self._data
-            .get("custom_attributes", {})
-            .get("dispatch_id")
-        )
+        return self._data.get("custom_attributes", {}).get("dispatch_id")
 
     @cached_property
     def dispatch_id(self) -> str:
@@ -319,11 +298,7 @@ class SessionEndTransformer:
         return self.get_dispatch_id()
 
     def get_variant_id(self) -> Optional[str]:
-        return (
-            self._data
-            .get("custom_attributes", {})
-            .get("variant")
-        )
+        return self._data.get("custom_attributes", {}).get("variant")
 
     @cached_property
     def variant_id(self) -> str:
@@ -333,11 +308,7 @@ class SessionEndTransformer:
         return self.get_variant_id()
 
     def get_utm_campaign(self) -> Optional[str]:
-        return (
-            self._data
-            .get("custom_attributes", {})
-            .get("utm_campaign")
-        )
+        return self._data.get("custom_attributes", {}).get("utm_campaign")
 
     @cached_property
     def utm_campaign(self) -> str:
@@ -347,11 +318,7 @@ class SessionEndTransformer:
         return self.get_utm_campaign()
 
     def get_utm_medium(self) -> Optional[str]:
-        return (
-            self._data
-            .get("custom_attributes", {})
-            .get("utm_medium")
-        )
+        return self._data.get("custom_attributes", {}).get("utm_medium")
 
     @cached_property
     def utm_medium(self) -> str:
@@ -361,11 +328,7 @@ class SessionEndTransformer:
         return self.get_utm_medium()
 
     def get_utm_source(self) -> Optional[str]:
-        return (
-            self._data
-            .get("custom_attributes", {})
-            .get("utm_source")
-        )
+        return self._data.get("custom_attributes", {}).get("utm_source")
 
     @cached_property
     def utm_source(self) -> str:

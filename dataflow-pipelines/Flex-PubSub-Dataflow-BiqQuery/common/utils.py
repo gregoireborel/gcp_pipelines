@@ -8,10 +8,12 @@ from google.cloud.exceptions import NotFound
 from .schema import SESSION_ERROR_SCHEMA, SESSION_SCHEMA
 from .storage_write_api.bigquery_write_api import BigQueryStorageWriteAPI
 
+
 class CompletionMarker(beam.DoFn):
     """
     Emit a completion marker to signal the end of a step.
     """
+
     def process(self, element):
         yield None
 
@@ -31,6 +33,7 @@ class ProcessData(beam.DoFn):
         service_account_email (str): Service account email
         job_name (str): Job name
     """
+
     def __init__(
         self,
         bucket,
@@ -40,7 +43,7 @@ class ProcessData(beam.DoFn):
         dataset_errors,
         template,
         service_account_email,
-        job_name
+        job_name,
     ):
         self.bucket = bucket
         self.bq_project = destination_project_id
@@ -83,31 +86,57 @@ class ProcessData(beam.DoFn):
 
             # Process the data
             processed_data = [self.template.process(t) for t in data]
-            
+
             # Split the data into valid and invalid data (Null mandatory fields)
-            valid_data, invalid_data = split_null_mandatory_data(processed_data, self.required_fields)
+            valid_data, invalid_data = split_null_mandatory_data(
+                processed_data, self.required_fields
+            )
 
             # Upsert valid data to Return table using the BQ Storage Write API
             if len(valid_data) > 0:
                 self.bq_writer.append_rows_proto2(valid_data)
 
-            if len(invalid_data) > 0: # If invalid data found
+            if len(invalid_data) > 0:  # If invalid data found
                 logging.error("Invalid data : null mandatory fields")
                 # Insert data to bq error table using the BQ Streaming API
-                self.bigquery_client.insert_rows_json(table=f"{self.bq_project}.{self.error_dataset}.{self.error_bq_table}", json_rows=invalid_data)
+                self.bigquery_client.insert_rows_json(
+                    table=f"{self.bq_project}.{self.error_dataset}.{self.error_bq_table}",
+                    json_rows=invalid_data,
+                )
 
                 # Copying the source file to error/ GCS folder
-                copy_blob(self.storage_client, self.bucket, file_key, f"{self.error_gcs_folder}/{file_key}")
-                logging.error(f"File moved from {file_key} to {self.error_gcs_folder}/{file_key}")
-            else: # No invalid data / File with no invalid data
+                copy_blob(
+                    self.storage_client,
+                    self.bucket,
+                    file_key,
+                    f"{self.error_gcs_folder}/{file_key}",
+                )
+                logging.error(
+                    f"File moved from {file_key} to {self.error_gcs_folder}/{file_key}"
+                )
+            else:  # No invalid data / File with no invalid data
                 # Copying the source file to archive/ GCS folder
-                copy_blob(self.storage_client, self.bucket, file_key, f"{self.archive_gcs_folder}/{file_key}")
-                logging.info(f"Data from {file_key} has been successfully inserted into {self.bq_project}.{self.dataset}.{self.bq_table}")
+                copy_blob(
+                    self.storage_client,
+                    self.bucket,
+                    file_key,
+                    f"{self.archive_gcs_folder}/{file_key}",
+                )
+                logging.info(
+                    f"Data from {file_key} has been successfully inserted into {self.bq_project}.{self.dataset}.{self.bq_table}"
+                )
         except Exception as error:
             # Copying the source file to error/ GCS folder
             logging.error(f"An error occured : {error}")
-            copy_blob(self.storage_client, self.bucket, file_key, f"{self.error_gcs_folder}/{file_key}")
-            logging.error(f"File moved from {file_key} to {self.error_gcs_folder}/{file_key}") 
+            copy_blob(
+                self.storage_client,
+                self.bucket,
+                file_key,
+                f"{self.error_gcs_folder}/{file_key}",
+            )
+            logging.error(
+                f"File moved from {file_key} to {self.error_gcs_folder}/{file_key}"
+            )
 
 
 def split_null_mandatory_data(data, required_fields):
@@ -133,7 +162,11 @@ def split_null_mandatory_data(data, required_fields):
             valid.append(element)
         else:
             # Drop keys with None value and _CHANGE_TYPE key to insert instead of upsert
-            element = {k: v for k, v in element.items() if (v is not None and k !="_CHANGE_TYPE")}
+            element = {
+                k: v
+                for k, v in element.items()
+                if (v is not None and k != "_CHANGE_TYPE")
+            }
             invalid.append(element)
 
     return valid, invalid

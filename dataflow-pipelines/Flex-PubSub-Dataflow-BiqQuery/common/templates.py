@@ -30,10 +30,13 @@ class SessionStartTemplate(beam.DoFn):
                 "operating_system": transformer.operating_system,
                 "update_date": transformer.update_date,
                 "update_user": self.service_account_email,
-                "_CHANGE_TYPE": "UPSERT"
+                "_CHANGE_TYPE": "UPSERT",
             }
         except Exception as e:
-            logging.error("The following error occuried while creating SessionStartTemplate : ", str(e))
+            logging.error(
+                "The following error occuried while creating SessionStartTemplate : ",
+                str(e),
+            )
 
 
 class SessionEndTemplate(beam.DoFn):
@@ -62,7 +65,10 @@ class SessionEndTemplate(beam.DoFn):
                 "operating_system": transformer.operating_system,
                 "update_date": transformer.update_date,
                 "update_user": self.service_account_email,
-                "_CHANGE_TYPE": "UPSERT"
+                "_CHANGE_TYPE": "UPSERT",
             }
         except Exception as e:
-            logging.error("The following error occuried while creating SessionEndTemplate : ", str(e))
+            logging.error(
+                "The following error occuried while creating SessionEndTemplate : ",
+                str(e),
+            )

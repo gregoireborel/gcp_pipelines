@@ -1,4 +1,4 @@
-# gcp-pipelines
+# gcp_pipelines/dataflow-pipelines
 
 ## What are Dataflow and Apache Beam
 Google Cloud Dataflow is a fully managed service for executing Apache Beam pipelines within the Google Cloud Platform ecosystem.
@@ -10,7 +10,7 @@ Apache Beam is an open source, unified model for defining both batch and streami
 **Remember**: you code a streaming or batch pipeline. You package it as a template. You deploy it by running a job of said template.
 
 ### Types of data pipelines
-Dataflow has two data pipeline types, streaming (unbounded data) and batch (bounded data). Both types of pipeline run jobs that are defined in Dataflow templates (classic or flex).
+Dataflow has two data pipeline types, streaming (unbounded data) and batch (bounded data). Both types of pipeline run jobs that are defined in Dataflow templates (Classic or Flex).
 
 Streamings jobs are typically run continously where as batch jobs are run on a schedule (e.g. daily).
 
@@ -21,13 +21,13 @@ We could create:
 - one batch pipeline running once per day ingesting huge chunks of historical data (e.g. one file)
 - one streaming pipeline running continously and ingesting small updates (e.g. thousands of files)
 
-Yet, both pipelines share most of the source code because they process the same data. Only the volume changes.
+Yet, both pipelines share most of the source code because they process the same data. Only the data input and data size change.
 ```
 
 However, streaming pipelines are more complex to manage. Specific concepts such as [windowing](https://beam.apache.org/documentation/programming-guide/index.html#windowing) and [triggers](https://beam.apache.org/documentation/programming-guide/index.html#triggers) need to be learned in order to address the unbounded nature of streaming data.
 
 ### Types of Dataflow templates: classic vs flex
-Dataflow templates allow you to package a Dataflow pipeline for deployment. Old way is to use classic template, new way is flex template. Both have pros and cons:
+Dataflow templates allow you to package a Dataflow pipeline for deployment. Old way is to use Classic template, new way is Flex template. Both have pros and cons:
 
 | Feature              | Dataflow Classic Templates       | Dataflow Flex Templates             |
 |----------------------|----------------------------------|-------------------------------------|
@@ -54,7 +54,7 @@ You need to install:
 - [gcloud](https://cloud.google.com/sdk/docs/install)
 - [protobuff compiler](https://grpc.io/docs/protoc-installation/)
 
-Useful Ruff commands:
+Useful Ruff commands in vscode:
 - Format imports
 - Format documents
 - Fix all auto-fixable problems
@@ -71,7 +71,7 @@ Using pyenv:
 ```bash
 pyenv install 3.11
 pyenv virtualenv 3.11 dataflow-pipelines-env
-cd ~/data-gcp-integrations/dataflow-pipelines
+cd ~/gcp_pipelines/dataflow-pipelines
 pyenv local dataflow-pipelines-env
 pyenv versions
 ```
@@ -81,7 +81,7 @@ Using virtualenv:
 
 ```bash
 pip install virtualenv
-cd ~/data-gcp-integrations/dataflow-pipelines
+cd ~/gcp_pipelines/dataflow-pipelines
 virtualenv -p python3.11 dataflow-pipelines-env
 source dataflow-pipelines-env/bin/activate  # On macOS/Linux
 dataflow-pipelines-env\Scripts\activate # On Windows
@@ -101,7 +101,7 @@ gcloud auth application-default login
 
 :point_up: When you turn on your computer, you may need to reactivate your virtual environment.
 ```bash
-cd ~/data-gcp-integrations/dataflow-pipelines
+cd ~/gcp_pipelines/dataflow-pipelines
 pyenv local dataflow-pipelines-env
 ```
 

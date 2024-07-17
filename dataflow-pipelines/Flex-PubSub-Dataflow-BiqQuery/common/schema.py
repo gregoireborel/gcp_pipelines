@@ -15,7 +15,7 @@ SESSION_SCHEMA = [
     {"name": "activity_platform", "type": "STRING", "mode": "REQUIRED"},
     {"name": "operating_system", "type": "STRING", "mode": "REQUIRED"},
     {"name": "update_date", "type": "TIMESTAMP", "mode": "REQUIRED"},
-    {"name": "update_user", "type": "STRING", "mode": "REQUIRED"}
+    {"name": "update_user", "type": "STRING", "mode": "REQUIRED"},
 ]
 
 SESSION_ERROR_SCHEMA = [
@@ -35,5 +35,5 @@ SESSION_ERROR_SCHEMA = [
     {"name": "activity_platform", "type": "STRING", "mode": "NULLABLE"},
     {"name": "operating_system", "type": "STRING", "mode": "NULLABLE"},
     {"name": "update_date", "type": "TIMESTAMP", "mode": "NULLABLE"},
-    {"name": "update_user", "type": "STRING", "mode": "NULLABLE"}
+    {"name": "update_user", "type": "STRING", "mode": "NULLABLE"},
 ]
