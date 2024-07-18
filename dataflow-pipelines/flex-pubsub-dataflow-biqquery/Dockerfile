@@ -10,6 +10,7 @@ COPY dataflow-pipelines/${PIPELINE_NAME}/ ${WORKDIR}/
 
 RUN ls -R ${WORKDIR}
 
+ENV FLEX_TEMPLATE_PYTHON_SETUP_FILE="${WORKDIR}/setup.py"
 ENV FLEX_TEMPLATE_PYTHON_PY_FILE="${WORKDIR}/main.py"
 
 # Since we already downloaded all the dependencies, there's no need to rebuild everything.
