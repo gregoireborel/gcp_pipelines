@@ -12,6 +12,7 @@ install_requires = [
     "google-cloud-pubsub==2.19.0",
     "google-auth==2.26.2",
     "google-cloud-storage==2.14.0",
+    "gborelpy==0.4.0",
 ]
 
 setuptools.setup(
