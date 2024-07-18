@@ -1,0 +1,19 @@
+# ignore .git and .cache folders
+.git
+.cache
+# ignore all *.suffix files in all folders, including build root
+**/*.md
+**/*.sh
+**/*.txt
+
+# python files
+build
+dist
+*.egg-info
+*.egg/
+*.pyc
+*.swp
+.tox
+.coverage
+html/*
+__pycache__
