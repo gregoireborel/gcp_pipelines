@@ -9,8 +9,8 @@ from apache_beam.options.pipeline_options import (
     StandardOptions,
 )
 from apache_beam.transforms.window import FixedWindows
+from gborelpy.beam_utils import GeneratePath, ParseJSON
 from runtime_options import RuntimeOptions
-from gborelpy.beam_utils import ParseJSON, GeneratePath
 
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)
@@ -46,8 +46,8 @@ if __name__ == "__main__":
                     >> beam.ParDo(
                         GeneratePath(
                             bucket=bucket_name,
-                            input_date=input_date,
-                            event_types="session_start",
+                            files_prefix=None,
+                            input_date=None,
                         )
                     )
                     # | "[Session Start] Match files GCS bucket" >> MatchAll()

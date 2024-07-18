@@ -12,7 +12,8 @@ if [ -s /workspace/changed_folders ]; then
 
         /kaniko/executor \
         --cache=true \
-        --destination "$LOCATION-docker.pkg.dev/$PROJECT_ID/$DOCKER_REPO_NAME/$folder:latest"
+        --destination="$LOCATION-docker.pkg.dev/$PROJECT_ID/$DOCKER_REPO_NAME/$folder:latest" \
+        --build-arg "PIPELINE_NAME=$folder"
 
         # Go back to the root directory before processing the next folder
         cd - > /dev/null

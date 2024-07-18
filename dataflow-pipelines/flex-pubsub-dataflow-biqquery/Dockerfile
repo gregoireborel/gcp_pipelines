@@ -1,13 +1,12 @@
 # https://github.com/gregoireborel/dataflow_docker_base_image
 FROM europe-west1-docker.pkg.dev/gborel-sample-project/dataflow-images/dataflow-base-image:1.0.0
 
-RUN pwd
-
+ARG PIPELINE_NAME
 ARG WORKDIR=/template
 RUN mkdir -p ${WORKDIR}
 WORKDIR ${WORKDIR}
 
-COPY dataflow-pipelines/flex-pubsub-dataflow-biqquery/ ${WORKDIR}/
+COPY dataflow-pipelines/${PIPELINE_NAME}/ ${WORKDIR}/
 
 RUN ls -R ${WORKDIR}
 
