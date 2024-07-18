@@ -12,4 +12,5 @@ gcloud dataflow flex-template run "$PIPELINE_NAME-$CI_SERVICE_NAME-$(date +%Y-%m
   --project="$PROJECT_ID" \
   --region="$LOCATION" \
   --temp-location="gs://$DATAFLOW_BUCKET/temp" \
+  --num-workers=4 \
   --staging-location="gs://$DATAFLOW_BUCKET/staging" $(cat $CI_FILE_PATH)
