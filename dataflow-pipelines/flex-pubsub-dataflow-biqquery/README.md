@@ -1,6 +1,6 @@
-# Flex-PubSub-Dataflow-BiqQuery-batch
+# flex-PubSub-Dataflow-BiqQuery-batch
 ## What is it?
-Flex-PubS ub-Dataflow-BiqQuery-batch is batch pipeline designed to : 
+flex-PubS ub-Dataflow-BiqQuery-batch is batch pipeline designed to : 
 - Read session_start and session_end files from GCS
 - Process the data
 - Write processed data to the SESSION BigQuery table
@@ -20,12 +20,12 @@ brew install protobuf
 ```
 
 ## How to build/run the dataflow job?
-Build Flex-PubSub-Dataflow-BiqQuery-batch:
+Build flex-PubSub-Dataflow-BiqQuery-batch:
 ```bash
-python Flex-PubSub-Dataflow-BiqQuery-batch.py \
+python flex-PubSub-Dataflow-BiqQuery-batch.py \
 --runner DataflowRunner \
 --project gia-develop-int-94070 \
---template_location gs://gia-develop-dataflow-templates/templates/Flex-PubSub-Dataflow-BiqQuery-batch \
+--template_location gs://gia-develop-dataflow-templates/templates/flex-PubSub-Dataflow-BiqQuery-batch \
 --staging_location gs://gia-develop-dataflow-templates/staging \
 --temp_location gs://gia-develop-dataflow-templates/temp \
 --region europe-west2 \
@@ -39,10 +39,10 @@ python Flex-PubSub-Dataflow-BiqQuery-batch.py \
 --service_account_email 511438648610-compute@developer.gserviceaccount.com
 ```
 
-Run Flex-PubSub-Dataflow-BiqQuery-batch:
+Run flex-PubSub-Dataflow-BiqQuery-batch:
 ```bash
-gcloud dataflow jobs run Flex-PubSub-Dataflow-BiqQuery-batch \
-    --gcs-location gs://gia-develop-dataflow-templates/templates/Flex-PubSub-Dataflow-BiqQuery-batch \
+gcloud dataflow jobs run flex-PubSub-Dataflow-BiqQuery-batch \
+    --gcs-location gs://gia-develop-dataflow-templates/templates/flex-PubSub-Dataflow-BiqQuery-batch \
     --region europe-west2 \
     --subnetwork https://www.googleapis.com/compute/v1/projects/gia-develop-host-54723/regions/europe-west2/subnetworks/gia-develop-europe-west2-subnet
 ```

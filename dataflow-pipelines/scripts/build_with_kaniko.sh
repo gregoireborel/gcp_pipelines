@@ -8,12 +8,11 @@ if [ -s /workspace/changed_folders ]; then
         echo "##### Building pipeline in folder: $folder "#####
         cd ../$folder
 
-        IMAGE_NAME=$(echo "$folder" | tr '[:upper:]' '[:lower:]')
-        echo "##### Building Dataflow Docker image $IMAGE_NAME with Kaniko"#####
+        echo "##### Building Dataflow Docker image $folder with Kaniko"#####
 
         /kaniko/executor \
         --cache=true \
-        --destination "$LOCATION-docker.pkg.dev/$PROJECT_ID/$DOCKER_REPO_NAME/$IMAGE_NAME:latest"
+        --destination "$LOCATION-docker.pkg.dev/$PROJECT_ID/$DOCKER_REPO_NAME/$folder:latest"
 
         # Go back to the root directory before processing the next folder
         cd - > /dev/null

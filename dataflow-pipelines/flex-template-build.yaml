@@ -17,9 +17,9 @@ steps:
       - '-c'
       - |
         git fetch --depth=2
-        if git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/Flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq | grep -q "Flex"; then
+        if git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq | grep -q "flex"; then
           # Save the changed folders to a file for later steps
-          echo "$(git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/Flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq)" >> /workspace/changed_folders
+          echo "$(git diff --dirstat=files,0 HEAD^ HEAD -- dataflow-pipelines/flex* | sed 's/^[ 0-9.]\+% //g' | cut -d'/' -f2 | uniq)" >> /workspace/changed_folders
         fi
 
   # Build Flex Template Image stage
@@ -49,7 +49,7 @@ steps:
       - 'DOCKER_REPO_NAME=$_DOCKER_REPO_NAME'
       - 'SDK_LANGUAGE=PYTHON'
       - 'DATAFLOW_BUCKET=$_DATAFLOW_BUCKET'
-      - 'CI_SERVICE_NAME=CloudBuild-CI'
+      - 'CI_SERVICE_NAME=cloudbuild-ci'
 
 substitutions:
   _ENV: $_ENV

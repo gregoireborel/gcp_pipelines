@@ -2,7 +2,7 @@
 import setuptools
 
 PACKAGE_VERSION = "1.0.0"
-PACKAGE_NAME = "Flex-PubSub-Dataflow-BiqQuery-batch"
+PACKAGE_NAME = "flex-PubSub-Dataflow-BiqQuery-batch"
 
 # List here only libraries your SDK won't work with! Here some examples
 # Now if we install the package normally : pip install -e .
@@ -18,7 +18,7 @@ setuptools.setup(
     name=PACKAGE_NAME,
     packages=setuptools.find_packages(),
     version=PACKAGE_VERSION,
-    description="Flex-PubSub-Dataflow-BiqQuery-batch processing package.",
+    description="flex-PubSub-Dataflow-BiqQuery-batch processing package.",
     python_requires=">=3.11",
     install_requires=install_requires,
 )
