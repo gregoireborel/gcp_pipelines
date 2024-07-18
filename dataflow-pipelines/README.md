@@ -110,15 +110,15 @@ pyenv local dataflow-pipelines-env
 ## Workflow
 
 1. `git checkout -b feature/GIA-XXX-my-branch`
-2. Create your pipeline folder (usually by copy and pasting another pipeline). Do stuff and things on your code
+2. Create your pipeline folder (lowercase, beginning with "flex"). Copy-pasting from anoter pipeline is handy
 3. Run your code locally with `run_locally.sh`, either with `DirectRunner` or `DataflowRunner`
 4. Add all necessary tests scripts to the `tests/` folder
-5. Add a `README.md` to explain how your pipeline works and how to test it. Update `versions.txt` and `setup.py` if needed
-6. Use ruff CLI or ruff vscode to check and format your files
-7. Commit and push your work
-8. Raise a draft PR. If the CI/CD is ready for your pipeline, it will automatically trigger it
-9. Clean up. Temporary topics, buckets, etc. need to be deleted. Scripts could be handy so that the reviewer can do the same
-10. Everything is fine? Submit your PR and get some coffee :)
+5. Use ruff CLI or ruff vscode to check and format your files
+6. Commit and push your work on your branch. This will trigger the Cloud Build CI in the `develop` project
+7. Raise a draft PR
+8. Once the PR is merged to main, the Cloud Build CI in the `staging` project will be triggered
+9. From the `staging` project, run the `dataflow-flex-template-run` manual trigger to run your pipeline (replace `_PIPELINE_NAME` value)
+10. Clean up. Temporary topics, buckets, etc. need to be deleted. Scripts could be handy so that the reviewer can do the same
 
 # FAQ
 - _I got weird import/pickling errors_
