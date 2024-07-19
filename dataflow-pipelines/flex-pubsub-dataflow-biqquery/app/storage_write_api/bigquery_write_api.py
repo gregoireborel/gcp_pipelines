@@ -2,7 +2,7 @@ from google.cloud.bigquery_storage_v1 import types
 from google.cloud.bigquery_storage_v1 import writer
 from google.protobuf import descriptor_pb2
 
-from common.storage_write_api import data_model_pb2
+from app.storage_write_api import data_model_pb2
 
 SINGULAR_FIELDS_TO_CHECK = [
     "session_id",

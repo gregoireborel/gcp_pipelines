@@ -6,17 +6,19 @@ ARG WORKDIR=/template
 RUN mkdir -p ${WORKDIR}
 WORKDIR ${WORKDIR}
 
-COPY dataflow-pipelines/${PIPELINE_NAME}/ ${WORKDIR}/
+COPY dataflow-pipelines/${PIPELINE_NAME}/app ${WORKDIR}/
+COPY dataflow-pipelines/${PIPELINE_NAME}/main.py ${WORKDIR}/
+COPY dataflow-pipelines/${PIPELINE_NAME}/setup.py ${WORKDIR}/
 
 RUN ls -R ${WORKDIR}
 
-ENV REQUIREMENTS_FILE="${WORKDIR}/requirements.txt"
+#ENV REQUIREMENTS_FILE="${WORKDIR}/requirements.txt"
 ENV FLEX_TEMPLATE_PYTHON_SETUP_FILE="${WORKDIR}/setup.py"
 ENV FLEX_TEMPLATE_PYTHON_PY_FILE="${WORKDIR}/main.py"
 
-RUN apt-get update \
-    && pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r $REQUIREMENTS_FILE
+# RUN apt-get update \
+#     && pip install --no-cache-dir --upgrade pip \
+#     && pip install --no-cache-dir -r $REQUIREMENTS_FILE
 
 # Since we already downloaded all the dependencies, there's no need to rebuild everything.
 ENV PIP_NO_DEPS=True

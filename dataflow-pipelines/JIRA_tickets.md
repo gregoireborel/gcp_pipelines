@@ -13,6 +13,7 @@ In `develop` GCP project:
     - Dataflow Admin
     - Storage Object Admin
     - Service Usage Consumer
+    - Service Account User of the default Compute Engine Service Account of the project (Dataflow uses it)
 5. Create Cloud Storage bucket for Dataflow templates and artifacts
 6. Create Cloud Build 2nd gen trigger with `push to main branch` event linked to Python package GitHub repository (keep default configuraiton with `cloudbuild.yaml`). Attach `sa-cloud-build` to the trigger
 7. Create Cloud Build 2nd gen trigger with `push to feature/ branch` event linked to Dataflow GitHub repository.  Attach `sa-cloud-build` to the trigger. Apply following configuration:
@@ -31,11 +32,13 @@ In `staging` GCP project:
     - Dataflow Admin
     - Storage Object Admin
     - Service Usage Consumer
+    - Service Account User of the default Compute Engine Service Account of the project (Dataflow uses it)
 4. Grant access to the `sa-cloud-build` in `develop` project with the Artifact Registry Reader role (in order to get access to Artifact Registry)
 5. Create Cloud Storage bucket for Dataflow templates and artifacts
 6. Create Cloud Build 2nd gen trigger with `push to main branch` event linked to Dataflow GitHub repository.  Attach `sa-cloud-build` to the trigger. Apply following configuration:
 
 [<img src="img/staging_trigger_build.png/" width="50%" height="50%" style=" display: block;margin-left: auto;margin-right: auto;">]()
+
 7. Create Cloud Build 2nd gen trigger with `manual invocation` response linked to Dataflow GitHub repository.  Attach `sa-cloud-build` to the trigger. Apply following configuration:
 
 [<img src="img/staging_trigger_run.png/" width="50%" height="50%" style=" display: block;margin-left: auto;margin-right: auto;">]()
