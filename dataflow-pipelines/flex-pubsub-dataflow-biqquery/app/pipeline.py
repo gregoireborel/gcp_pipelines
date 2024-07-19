@@ -8,7 +8,7 @@ from apache_beam.options.pipeline_options import (
 )
 from apache_beam.transforms.window import FixedWindows
 from gborelpy.beam_utils import GeneratePath, ParseJSON
-from runtime_options import RuntimeOptions
+from app.runtime_options import RuntimeOptions
 
 
 def run(argv=None):
