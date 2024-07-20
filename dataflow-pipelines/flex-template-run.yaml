@@ -1,11 +1,6 @@
 steps:
-  - name: google/cloud-sdk:420.0.0
-    entrypoint: /bin/sh
-    args:
-      - -c
-      - |
-        cd dataflow-pipelines/scripts/
-        ./run_job.sh
+  - name: google/cloud-sdk:420.0.0-slim
+    args: [ './dataflow-pipelines/scripts/run_job.sh' ]
     env:
       - 'LOCATION=$LOCATION'
       - 'PROJECT_ID=$PROJECT_ID'
