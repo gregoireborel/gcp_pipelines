@@ -2,9 +2,8 @@
 # Exit when any command fails
 set -euo pipefail
 
-CLEAN_BRANCH_NAME=$(cat /workspace/clean_branch_name)
-
 if [ -s /workspace/changed_folders ]; then
+    CLEAN_BRANCH_NAME=$(cat /workspace/clean_branch_name)
     while IFS="" read -r PIPELINE_NAME || [ -n "$PIPELINE_NAME" ]
     do
         cd ../$PIPELINE_NAME
