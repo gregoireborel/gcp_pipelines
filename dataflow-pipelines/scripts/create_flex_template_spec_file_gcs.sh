@@ -7,7 +7,7 @@ if [ -s /workspace/changed_folders ]; then
     while IFS="" read -r PIPELINE_NAME || [ -n "$PIPELINE_NAME" ]
     do
         echo "##### Building JSON specificaton file for $PIPELINE_NAME Docker image #####"
-        TEMPLATE_NAME=${PIPELINE_NAME}_${CLEAN_BRANCH_NAME}_${CI_SERVICE_NAME}
+        TEMPLATE_NAME=${PIPELINE_NAME}-${CLEAN_BRANCH_NAME}-${CI_SERVICE_NAME}
 
         gcloud dataflow flex-template build "gs://$DATAFLOW_BUCKET/$TEMPLATE_NAME.json" \
         --image "$LOCATION-docker.pkg.dev/$PROJECT_ID/$DOCKER_REPO_NAME/$TEMPLATE_NAME:latest" \

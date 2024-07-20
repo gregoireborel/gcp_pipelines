@@ -14,7 +14,7 @@ steps:
       - 'PIPELINE_NAME=$_PIPELINE_NAME'
       - 'MODE=$_MODE'
       - 'ENV=$_ENV'
-      - 'CI_SERVICE_NAME=cloudbuild-ci-$_ENV'
+      - 'CI_SERVICE_NAME=cloudbuild-$_ENV'
 
 options:
   substitution_option: ALLOW_LOOSE

@@ -8,7 +8,7 @@ if [ -s /workspace/changed_folders ]; then
     do
         cd ../$PIPELINE_NAME
         echo "##### Building Dataflow Docker image $PIPELINE_NAME with Kaniko"#####
-        TEMPLATE_NAME=${PIPELINE_NAME}_${CLEAN_BRANCH_NAME}_${CI_SERVICE_NAME}
+        TEMPLATE_NAME=${PIPELINE_NAME}-${CLEAN_BRANCH_NAME}-${CI_SERVICE_NAME}
 
         /kaniko/executor \
         --cache=true \
