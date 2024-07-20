@@ -2,18 +2,19 @@
 # Exit when any command fails
 set -euo pipefail
 
-if [ -s /workspace/changed_folders ]; then
-    while IFS="" read -r folder || [ -n "$folder" ]
-    do
-        echo "##### Building pipeline in folder: $folder "#####
-        cd ../$folder
+CLEAN_BRANCH_NAME=$(cat /workspace/clean_branch_name)
 
-        echo "##### Building Dataflow Docker image $folder with Kaniko"#####
+if [ -s /workspace/changed_folders ]; then
+    while IFS="" read -r PIPELINE_NAME || [ -n "$PIPELINE_NAME" ]
+    do
+        cd ../$PIPELINE_NAME
+        echo "##### Building Dataflow Docker image $PIPELINE_NAME with Kaniko"#####
+        TEMPLATE_NAME=${PIPELINE_NAME}_${CLEAN_BRANCH_NAME}_${CI_SERVICE_NAME}
 
         /kaniko/executor \
         --cache=true \
-        --destination="$LOCATION-docker.pkg.dev/$PROJECT_ID/$DOCKER_REPO_NAME/$folder:latest" \
-        --build-arg "PIPELINE_NAME=$folder"
+        --destination="$LOCATION-docker.pkg.dev/$PROJECT_ID/$DOCKER_REPO_NAME/$TEMPLATE_NAME:latest" \
+        --build-arg "PIPELINE_NAME=$PIPELINE_NAME"
 
         # Go back to the root directory before processing the next folder
         cd - > /dev/null

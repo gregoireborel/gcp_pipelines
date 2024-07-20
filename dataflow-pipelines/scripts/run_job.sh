@@ -5,10 +5,17 @@ set -euo pipefail
 
 echo "##### Run the Dataflow Flex Template $PIPELINE_NAME pipeline #####"
 
-CI_FILE_PATH=dataflow-pipelines/$PIPELINE_NAME/ci/$MODE/${ENV}_parameters.txt
+CLEAN_BRANCH_NAME="${BRANCH_NAME////-}" | tr '[:upper:]' '[:lower:]'
 
-gcloud dataflow flex-template run "$PIPELINE_NAME-$CI_SERVICE_NAME-$(date +%Y-%m-%d-%H%M%S)" \
-  --template-file-gcs-location "gs://$DATAFLOW_BUCKET/$PIPELINE_NAME-$CI_SERVICE_NAME.json" \
+echo "CLEAN BRANCH NAME $CLEAN_BRANCH_NAME"
+
+CI_FILE_PATH=dataflow-pipelines/$PIPELINE_NAME/ci/$MODE/${ENV}_parameters.txt
+TEMPLATE_NAME=${PIPELINE_NAME}_${CLEAN_BRANCH_NAME}_${CI_SERVICE_NAME}
+
+
+
+gcloud dataflow flex-template run "$TEMPLATE_NAME-$(date +%Y-%m-%d-%H%M%S)" \
+  --template-file-gcs-location "gs://$DATAFLOW_BUCKET/$TEMPLATE_NAME.json" \
   --project="$PROJECT_ID" \
   --region="$LOCATION" \
   --temp-location="gs://$DATAFLOW_BUCKET/temp" \

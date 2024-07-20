@@ -2,14 +2,16 @@
 # Exit when any command fails
 set -euo pipefail
 
-if [ -s /workspace/changed_folders ]; then
-    while IFS="" read -r folder || [ -n "$folder" ]
-    do
-        IMAGE_NAME=$(echo "$folder" | tr '[:upper:]' '[:lower:]')
-        echo "##### Building JSON specificaton file for $folder Docker image #####"
+CLEAN_BRANCH_NAME=$(cat /workspace/clean_branch_name)
 
-        gcloud dataflow flex-template build "gs://$DATAFLOW_BUCKET/$folder-$CI_SERVICE_NAME.json" \
-        --image "$LOCATION-docker.pkg.dev/$PROJECT_ID/$DOCKER_REPO_NAME/$IMAGE_NAME:latest" \
+if [ -s /workspace/changed_folders ]; then
+    while IFS="" read -r PIPELINE_NAME || [ -n "$PIPELINE_NAME" ]
+    do
+        echo "##### Building JSON specificaton file for $PIPELINE_NAME Docker image #####"
+        TEMPLATE_NAME=${PIPELINE_NAME}_${CLEAN_BRANCH_NAME}_${CI_SERVICE_NAME}
+
+        gcloud dataflow flex-template build "gs://$DATAFLOW_BUCKET/$TEMPLATE_NAME.json" \
+        --image "$LOCATION-docker.pkg.dev/$PROJECT_ID/$DOCKER_REPO_NAME/$TEMPLATE_NAME:latest" \
         --sdk-language "$SDK_LANGUAGE"
         #--metadata-file "$METADATA_FILE"
     done < /workspace/changed_folders
