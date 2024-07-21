@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Exit when any command fails
 set -euo pipefail
 
