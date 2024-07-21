@@ -61,7 +61,7 @@ Useful Ruff commands in vscode:
 
 ### Initialization
 Given the numerous bugs we can find on Apache Beam, it's important to keep track of the latest updates and use the most recent versions.
-As for this project, we use Python 3.11 and Apache Beam 2.53.0.
+As for this project, we use Python 3.11 and Apache Beam 2.57.0.
 
 More info about the SDK version support status [here](https://cloud.google.com/dataflow/docs/support/sdk-version-support-status).
 
@@ -78,7 +78,6 @@ pyenv versions
 You can find a good pyenv tutorial [here](https://realpython.com/intro-to-pyenv).
 
 Using virtualenv:
-
 ```bash
 pip install virtualenv
 cd ~/gcp_pipelines/dataflow-pipelines
@@ -90,8 +89,10 @@ python --version
 2. Install dependencies
 ```bash
 pip install -r requirements.txt
+pip install -r requirements-dev.txt
+pip install --extra-index-url https://europe-west1-python.pkg.dev/sample-project/python-repo/simple/ gborelpy==0.4.0
 ``` 
-This will install Apache Beam 2.53.0 among other things.
+This will install Apache Beam 2.57.0, some Google packages and our private package from Artifact Registry.
 
 3. Initialize gcloud
 ```bash
@@ -104,8 +105,6 @@ gcloud auth application-default login
 cd ~/gcp_pipelines/dataflow-pipelines
 pyenv local dataflow-pipelines-env
 ```
-
-:point_up: The Flex Dockerfiles rely on the following base image: [dataflow_docker_base_image](https://github.com/gregoireborel/dataflow_docker_base_image)
 
 ## Workflow
 
