@@ -2,15 +2,11 @@
 FROM europe-west1-docker.pkg.dev/gborel-sample-project/dataflow-images/dataflow-base-image:1.0.0
 
 ARG PIPELINE_NAME
-
-COPY dataflow-pipelines/${PIPELINE_NAME}/app .
-COPY dataflow-pipelines/${PIPELINE_NAME}/main.py .
-COPY dataflow-pipelines/${PIPELINE_NAME}/setup.py .
-
 # Location to store the pipeline artifacts.
 ARG WORKDIR=/template
 WORKDIR ${WORKDIR}
 
+COPY dataflow-pipelines/${PIPELINE_NAME}/requirements.in .
 COPY dataflow-pipelines/${PIPELINE_NAME}/requirements.txt .
 COPY dataflow-pipelines/${PIPELINE_NAME}/setup.py .
 COPY dataflow-pipelines/${PIPELINE_NAME}/main.py .
@@ -44,3 +40,7 @@ RUN pip check
 # Optionally, list all installed dependencies.
 # The output can be used to seed requirements.txt for reproducible builds.
 RUN pip freeze
+
+# Set the entrypoint to Apache Beam SDK launcher, which allows this image
+# to be used as an SDK container image.
+ENTRYPOINT ["/opt/apache/beam/boot"]
