@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-BRANCH_NAME=Feature/refacto/testLOL
-CLEAN_BRANCH_NAME=$(echo "$BRANCH_NAME" | tr '[:upper:]' '[:lower:]')
-CLEAN_BRANCH_NAME="${coucou////-}"
-echo $CLEAN_BRANCH_NAME
