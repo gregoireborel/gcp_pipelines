@@ -1,5 +1,17 @@
-# https://github.com/gregoireborel/dataflow_docker_base_image
-FROM europe-west1-docker.pkg.dev/gborel-sample-project/dataflow-images/dataflow-base-image:1.0.0
+# Dockerfile heavily inspired from https://github.com/GoogleCloudPlatform/python-docs-samples/blob/main/dataflow/flex-templates/pipeline_with_dependencies/README.md
+FROM python:3.11-slim
+
+# Copy SDK entrypoint binary from Apache Beam image, which makes it possible to
+# use the image as SDK container image. If you explicitly depend on
+# apache-beam in setup.py, use the same version of Beam in both files.
+COPY --from=apache/beam_python3.11_sdk:2.57.0 /opt/apache/beam /opt/apache/beam
+
+# Copy Flex Template launcher binary from the launcher image, which makes it
+# possible to use the image as a Flex Template base image.
+COPY --from=gcr.io/dataflow-templates-base/python311-template-launcher-base:flex_templates_base_image_release_20240628_RC00 /opt/google/dataflow/python_template_launcher /opt/google/dataflow/python_template_launcher
+
+RUN pip install keyrings.google-artifactregistry-auth
+RUN pip install --extra-index-url https://europe-west1-python.pkg.dev/gborel-sample-project/python-repo/simple/ gborelpy==0.4.0
 
 ARG PIPELINE_NAME
 # Location to store the pipeline artifacts.
