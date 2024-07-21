@@ -39,8 +39,8 @@ def run(argv=None):
                 input_date = "2024"
                 data = (
                     p
-                    | "[Batch] Pipeline init" >> beam.Create([None])
-                    | "[Batch] Generate input files path"
+                    | "Pipeline init" >> beam.Create([None])
+                    | "Generate input files path"
                     >> beam.ParDo(
                         GeneratePath(
                             bucket=bucket_name,
@@ -48,6 +48,7 @@ def run(argv=None):
                             input_date=None,
                         )
                     )
+                    | "Show paths" >> beam.Map(print)
                     # | "[Session Start] Match files GCS bucket" >> MatchAll()
                     # | "[Session Start] Process Data" >> beam.ParDo(
                     #     ProcessData(

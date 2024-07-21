@@ -14,8 +14,9 @@ CI_FILE_CONTENT=$(cat ci/$MODE/${ENV}_parameters.txt | sed 's/--parameters /--/g
 python -m main \
   --project="$PROJECT" \
   --job_name="local-$PIPELINE-`date +%Y-%m-%d-%H%M%S`" \
-  --runner=DirectRunner \
+  --runner=DataflowRunner \
   --region "$LOCATION" \
   --temp-location "gs://$BUCKET/temp" \
+  --setup_file ./setup.py \
   --staging-location "gs://$BUCKET/staging" $(echo $CI_FILE_CONTENT)
   

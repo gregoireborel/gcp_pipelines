@@ -8,11 +8,10 @@ PACKAGE_NAME = "flex-pubsub-dataflow-bigquery-batch"
 # Now if we install the package normally : pip install -e .
 install_requires = [
     "apache-beam[gcp]==2.57.0",
-    "google-api-core==2.15.0",
-    "google-cloud-pubsub==2.19.0",
-    "google-auth==2.26.2",
-    "google-cloud-storage==2.14.0",
-    "gborelpy==0.4.0",
+    "google-api-core==2.19.1",
+    "google-cloud-pubsub==2.22.0",
+    "google-auth==2.32.0",
+    "google-cloud-storage==2.17.0"
 ]
 
 setuptools.setup(

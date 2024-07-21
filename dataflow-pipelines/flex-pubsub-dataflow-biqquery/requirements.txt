@@ -1,9 +1,6 @@
 apache-beam[gcp]==2.57.0
 google-api-core==2.19.1
-google-cloud-pubsub==2.19.0
-google-auth==2.26.2
-google-cloud-storage>=2.16.0
+google-cloud-pubsub==2.22.0
+google-auth==2.32.0
+google-cloud-storage==2.17.0
 google-cloud-secret-manager==2.20.0
-tenacity==8.3.0
-ruff
-gborelpy==0.4.0
