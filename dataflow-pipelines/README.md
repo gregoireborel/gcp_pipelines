@@ -86,15 +86,19 @@ source dataflow-pipelines-env/bin/activate  # On macOS/Linux
 dataflow-pipelines-env\Scripts\activate # On Windows
 python --version
 ```
-2. Install dependencies
+2. Install Python dependencies
 ```bash
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
 pip install --extra-index-url https://europe-west1-python.pkg.dev/sample-project/python-repo/simple/ gborelpy==0.4.0
 ``` 
-This will install Apache Beam 2.57.0, some Google packages and our private package from Artifact Registry.
+This will install Apache Beam 2.57.0, some Google packages, our private package from Artifact Registry and `pip-tools`.
 
-3. Initialize gcloud
+3. Install `protoc`:
+- For macOS, `brew install protobuf`
+- For Linux, TODO
+
+4. Initialize gcloud
 ```bash
 gcloud auth login
 gcloud auth application-default login
@@ -106,7 +110,7 @@ cd ~/gcp_pipelines/dataflow-pipelines
 pyenv local dataflow-pipelines-env
 ```
 
-## Workflow
+## Workflow TODO: UPDATE WHEN TESTS ARE THERE
 
 1. `git checkout -b feature/GIA-XXX-my-branch`
 2. Create your pipeline folder (lowercase, beginning with "flex"). Copy-pasting from anoter pipeline is handy

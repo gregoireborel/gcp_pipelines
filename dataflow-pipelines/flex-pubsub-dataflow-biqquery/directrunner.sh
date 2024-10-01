@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
-
 # Exit when any command fails
 set -euo pipefail
 
+if [[ -z "$1" || ! "$1" =~ ^(batch|streaming)$ ]]; then
+  echo "Error: Invalid argument. Usage: $0 (batch|streaming)"
+  exit 1
+fi
+
+MODE=$1 # batch or streaming
 PROJECT=gborel-sample-project
 LOCATION=europe-west1
 PIPELINE=${PWD##*/}  
 BUCKET="gb-dataflow-flex-templates"
-MODE=$1
 ENV=develop
 CI_FILE_CONTENT=$(cat ci/$MODE/${ENV}_parameters.txt | sed 's/--parameters /--/g')
 

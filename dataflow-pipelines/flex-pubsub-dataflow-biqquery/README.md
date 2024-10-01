@@ -5,44 +5,19 @@ flex-pubsub-dataflow-biqquery is batch pipeline designed to :
 - Process the data
 - Write processed data to the BigQuery table
 - Copy successfully processed files to archive/ folder
-- Copy corrupted files to error/ folder  
- 
-## How to develop/update the dataflow job?
-When you modify the BigQuery table schema, you should also update the `data_model.proto` file. Then compile it using the following command:
+- Copy corrupted files to error/ folder
+
+## Run
+- In local, simply use `directrunner.sh`
+- In `develop` GCP project, from your branch, push your commits. It will trigger the CI and build the Docker image. Then use the `dataflow-flex-template-run ` trigger to run your pipeline
+
+## Update the Docker dependencies
+You probably don't have any reason to amend the Dockerfile. However, if you have new dependencies, you will need to inject them in the Docker image:
+1. Update `requirements.in`
+2. `pip-compile requirements.in` will regenerate `requirements.txt`
+
+## Update the proto descriptor file
+If the pipeline uses `protobuff` and do changes on the `data_model.proto` file, you will need to regenerate the Python proto descriptor file:
 ```bash
 protoc --python_out=. data_model.proto
-```
-  
-If `protoc` is not found. Please install the `protobuf` package.  
-For Mac OS users, you can install it with `brew` :
-```bash
-brew install protobuf
-```
-
-## How to build/run the dataflow job?
-Build flex-PubSub-Dataflow-BiqQuery-batch:
-```bash
-python flex-PubSub-Dataflow-BiqQuery-batch.py \
---runner DataflowRunner \
---project gia-develop-int-94070 \
---template_location gs://gia-develop-dataflow-templates/templates/flex-PubSub-Dataflow-BiqQuery-batch \
---staging_location gs://gia-develop-dataflow-templates/staging \
---temp_location gs://gia-develop-dataflow-templates/temp \
---region europe-west2 \
---setup_file ./setup.py \
---save_main_session \
---bucket_name gia-develop-datalake-crm-customer-mparticle \
---destination_project_id gia-develop-data-01107 \
---dataset gia_develop_datawarehouse_crm_customer \
---dataset_errors gia_develop_crm_customer_error_records \
---table SESSION \
---service_account_email 511438648610-compute@developer.gserviceaccount.com
-```
-
-Run flex-PubSub-Dataflow-BiqQuery-batch:
-```bash
-gcloud dataflow jobs run flex-PubSub-Dataflow-BiqQuery-batch \
-    --gcs-location gs://gia-develop-dataflow-templates/templates/flex-PubSub-Dataflow-BiqQuery-batch \
-    --region europe-west2 \
-    --subnetwork https://www.googleapis.com/compute/v1/projects/gia-develop-host-54723/regions/europe-west2/subnetworks/gia-develop-europe-west2-subnet
 ```
