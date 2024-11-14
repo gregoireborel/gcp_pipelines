@@ -11,6 +11,7 @@ COPY --from=apache/beam_python3.11_sdk:2.57.0 /opt/apache/beam /opt/apache/beam
 COPY --from=gcr.io/dataflow-templates-base/python311-template-launcher-base:flex_templates_base_image_release_20240628_RC00 /opt/google/dataflow/python_template_launcher /opt/google/dataflow/python_template_launcher
 
 RUN pip install keyrings.google-artifactregistry-auth
+# [PYTHON_PACKAGE] Remove this line if you are not using a custom Python package from Artifact Registry
 RUN pip install --extra-index-url https://europe-west1-python.pkg.dev/gborel-sample-project/python-repo/simple/ gborelpy==0.4.0
 
 ARG PIPELINE_NAME
