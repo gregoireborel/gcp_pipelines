@@ -1,5 +1,5 @@
 # JIRA tickets
-To setup Dataflow pipelines using custom Python package along with a Cloud Build CI/CD, here is the list of tasks to be performed. If you do not want to use a custom Python package from Artifact Registry, simply ignore de [PYTHON PACKAGE] steps.
+To setup Dataflow pipelines using custom Python package along with a Cloud Build CI/CD, here is the list of tasks to be performed. If you do not want to use a custom Python package from Artifact Registry, simply ignore the [PYTHON PACKAGE] steps.
 
 We assume that each environment has its own dedicated GCP project.
 
